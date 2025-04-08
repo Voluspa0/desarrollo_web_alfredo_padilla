@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Tarea 1</title>
+        <link rel="stylesheet" type="text/css" href="../css/index_style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="menu_container">
+            <h1 id="index_title">Bienvenid@</h1>
+            <hr>
+            <div class="buttons">
+                <button type="button" id="addActivityBtn">Agregar actividad</button>
+                <button type="button" id="listActivityBtn">Ver listado de actividades</button>
+                <button type="button" id="statsBtn">Estadísticas</button>
+            </div>
+        </div>
+        <div class="table_container">
+            <table id="activity_table">
+                <thead>
+                    <tr>
+                        <th>Inicio</th>
+                        <th>Término</th>
+                        <th>Comuna</th>
+                        <th>Sector</th>
+                        <th>Tema</th>
+                        <th>Foto</th>
+                    </tr>
+                </thead>
+                <tbody id="activity_list">
+                    <tr>
+                        <td>2025-02-15 09:00</td>
+                        <td>2025-02-15 11:30</td>
+                        <td>La Florida</td>
+                        <td>Paradero 14</td>
+                        <td>Recreación</td>
+                        <td><img src="../img/actividad_1.jpg" alt="Actividad 1" width="100"></td>
+                    </tr>
+                    <tr>
+                        <td>2025-02-22 09:30</td>
+                        <td>2025-02-22 12:00</td>
+                        <td>Santiago</td>
+                        <td>Gimnasio Domeyko</td>
+                        <td>Cocina</td>
+                        <td><img src="../img/actividad_2.jpg" alt="Actividad 2" width="100"></td>
+                    </tr>
+                    <tr>
+                        <td>2025-03-05 20:00</td>
+                        <td>2025-03-05 22:30</td>
+                        <td>Ñuñoa</td>
+                        <td>Teatro</td>
+                        <td>Música</td>
+                        <td><img src="../img/actividad_3.jpg" alt="Actividad 3" width="100"></td>
+                    </tr>
+                    <tr>
+                        <td>2025-03-10 08:30</td>
+                        <td>2025-03-10 10:00</td>
+                        <td>Santiago</td>
+                        <td>Gimnasio Piso -3</td>
+                        <td>Actividad Física</td>
+                        <td><img src="../img/actividad_4.jpg" alt="Actividad 4" width="100"></td>
+                    </tr>    
+                    <tr>
+                        <td>2025-03-24 10:30</td>
+                        <td>2025-03-24 12:00</td>
+                        <td>Santiago</td>
+                        <td>Biblioteca</td>
+                        <td>Reflexión</td>
+                        <td><img src="../img/actividad_5.jpg" alt="Actividad 5" width="100"></td>
+                    </tr>    
+                </tbody>
+            </table>
+        </div>
+        <script src="../js/index.js"></script>
+    </body>
+</html>

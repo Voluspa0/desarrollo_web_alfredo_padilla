@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Tarea 1</title>
+        <link rel="stylesheet" type="text/css" href="../css/add_activity_style.css">
+    </head>
+    <body>
+        <div class="form_container">
+            <h1 id="form_title">Agregar Actividad</h1>
+            <hr>
+            <form class="formulario" id="activity-form">
+                <h2 id="form_sec1_title" class="subtitles_form">¿Dónde?</h2>
+                <div id="region_input" class="grupo_input">
+                    <label for="region">Región </label> 
+                    <select id="region" name="region" required>
+                        <option value="" hidden>Seleccione una Región</option>
+                    </select>
+                </div>
+                <div id="comuna_input" class="grupo_input">
+                    <label for="comuna">Comuna </label> 
+                    <select id="comuna" name="comuna" required>
+                        <option value="" hidden>Seleccione una Comuna</option>
+                    </select>
+                </div>
+                <div id="sector_input" class="grupo_input">
+                    <label for="sector">Sector </label> 
+                    <input id="sector" name="sector" type="text" maxlength="100">
+                </div>
+
+                <hr>
+
+                <h2 id="form_sec2_title" class="subtitles_form">¿Quién organiza?</h2>
+                <div id="nombre_input" class="grupo_input">
+                    <label for="nombre">Nombre </label> 
+                    <input id="nombre" name="nombre" type="text" maxlength="200" required>
+                </div>
+                <div id="email_input" class="grupo_input">
+                    <label for="email">Email </label> 
+                    <input id="email" name="email" type="email" maxlength="100" required>
+                    <span id="email_error" class="error_message" style="display: none; color: red; font-weight: 600; font-size: small;"></span>
+                </div>
+                <div id="telefono_input" class="grupo_input">
+                    <label for="telefono">Número de Celular </label> 
+                    <input id="telefono" name="telefono" type="tel">
+                    <span id="telefono_error" class="error_message" style="display: none; color: red; font-weight: 600; font-size: small;"></span>
+                </div>
+                <div id="contactar_por_input" class="grupo_input">
+                    <label>Contactar por </label>
+                    <div class="checkbox_container">
+                        <label>
+                            <input type="checkbox" name="whatsapp" value="whatsapp" onclick="revisaCheck(this);"> WhatsApp
+                        </label>
+                        <input id="whatsapp" type="text" name="whatsapp-id" placeholder="ID de Contacto o URL de Usuario" minlength="4" maxlength="50" style="display: none;">
+                    </div>
+                    <div class="checkbox_container">
+                        <label>
+                            <input type="checkbox" name="telegram" value="telegram" onclick="revisaCheck(this);"> Telegram
+                        </label>
+                        <input id="telegram" type="text" name="telegram-id" placeholder="ID de Contacto o URL de Usuario" minlength="4" maxlength="50" style="display: none;">
+                    </div>
+                    <div class="checkbox_container">
+                        <label>
+                            <input type="checkbox" name="x" value="x" onclick="revisaCheck(this);"> X
+                        </label>
+                        <input id="x" type="text" name="x-id" placeholder="ID de Contacto o URL de Usuario" minlength="4" maxlength="50"  style="display: none;">
+                    </div>
+                    <div class="checkbox_container">
+                        <label>
+                            <input type="checkbox" name="instagram" value="instagram" onclick="revisaCheck(this);"> Instagram
+                        </label>
+                        <input id="instagram" type="text" name="instagram-id" placeholder="ID de Contacto o URL de Usuario" minlength="4" maxlength="50" style="display: none;">
+                    </div>
+                    <div class="checkbox_container">
+                        <label>
+                            <input type="checkbox" name="tiktok" value="tiktok" onclick="revisaCheck(this);"> TikTok
+                        </label>
+                        <input id="tiktok" type="text" name="tiktok-id" placeholder="ID de Contacto o URL de Usuario" minlength="4" maxlength="50" style="display: none;">
+                    </div>
+                    <div class="checkbox_container">
+                        <label>
+                            <input type="checkbox" name="otra" value="otra" onclick="revisaCheck(this);"> Otra
+                        </label>
+                        <input id="otra" type="text" name="otra-id" placeholder="ID de Contacto o URL de Usuario" minlength="4" maxlength="50" style="display: none;">
+                    </div>
+                </div>
+
+                <hr>
+
+                <h2 id="form_sec3_title" class="subtitles_form">¿Cuándo y de qué trata?</h2>
+                <div id="dia_hora_inicio_input" class="grupo_input">
+                    <label for="dia_hora_inicio">Día-Hora Inicio </label> 
+                    <input id="dia_hora_inicio" name="dia_hora_inicio" type="datetime-local" required>
+                </div>
+                <div id="dia_hora_termino_input" class="grupo_input">
+                    <label for="dia_hora_termino">Día-Hora Término </label> 
+                    <input id="dia_hora_termino" name="dia_hora_termino" type="datetime-local">
+                    <span id="dia_hora_termino_error" class="error_message" style="display: none; color: red; font-weight: 600; font-size: small;"></span>
+                </div>
+                <div id="descripcion_input" class="grupo_input">
+                    <label for="descripcion">Descripción</label> 
+                    <textarea id="descripcion" name="descripcion" rows="10" cols="50"></textarea>
+                </div>
+                <div id="tema_input" class="grupo_input">
+                    <label for="tema">Tema </label> 
+                    <select id="tema" name="tema" multiple required>
+                        <option value="" hidden>Seleccione un Tema</option>
+                        <option value="musica">Música</option>
+                        <option value="deporte">Deporte</option>
+                        <option value="ciencias">Ciencias</option>
+                        <option value="religion">Religión</option>
+                        <option value="politica">Política</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="juegos">Juegos</option>
+                        <option value="baile">Baile</option>
+                        <option value="comida">Comida</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                    <input id="otro" type="text" name="otro-id" placeholder="Otro Tema" minlength="3" maxlength="15" style="display: none;">
+                </div>
+                <div id="foto_input" class="grupo_input">
+                    <label for="foto">Foto</label>
+                    <div class="input_button_container">
+                        <input id="foto" name="foto" type="file" accept="image/*" required>
+                        <button type="button" id="agregar_foto_btn">Agregar otra foto</button>
+                    </div>
+                    <div id="fotos_container"></div>
+                </div>
+                <button type="button" id="agregar_actividad_btn">Agregar esta actividad</button>
+            </form>
+        </div>
+        <div id="confirmacion" class="confirmacion"  style="display: none;">
+            <div class="confirmacion_contenido">
+                <b class="confirmacion_pregunta">¿Está seguro que desea agregar esta actividad?</b>
+                <div class="confirmacion_botones">
+                    <button id="confirmar_si_btn" class="boton_confirmacion">Sí, estoy seguro</button>
+                    <button id="confirmar_no_btn" class="boton_confirmacion">No, no estoy seguro, quiero volver al formulario</button>
+                </div>
+                <span id="confirmacion_mensaje" class="confirmacion_mensaje" style="display: none; color: #303030; font-weight: 600; font-size: small;"></span>
+            </div>
+        </div>
+        <script src="../js/add_activity.js"></script>
+    </body>
+</html>

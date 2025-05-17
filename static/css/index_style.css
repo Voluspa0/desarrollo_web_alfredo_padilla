@@ -1,0 +1,112 @@
+:root {
+    --bg-color: #324b61;
+    --color-borde: #dbdbdb;
+    --title-color: #3c3c3e;
+    --subtitle-color: #3c3c3e;
+    --font: 'Segoe UI';
+}
+
+body{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 3rem;
+  background-color: var(--bg-color);
+}
+  
+.menu_container {
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    height: auto;
+    min-width: 25%;
+    max-width: 350px;
+    margin: 2% auto;
+    padding: 1rem;
+    padding-top: .5rem;
+    background-color: #ffffff;
+}
+
+#index_title {
+  text-align: center;
+  font-family: var(--font);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.buttons button{
+  background-color: #ffffff;
+  border: 2px solid var(--color-borde);
+  border-radius: 30px;
+  height: 3rem;
+  font-family: var(--font);
+}
+
+.buttons button:hover {
+  background-color: var(--color-borde);
+  border: 2px solid var(--bg-color);
+  border-radius: 30px;
+  height: 3rem;
+  font-family: var(--font);
+}
+
+.table_container {
+  display: flex;
+  border: none;
+  height: 50%;
+  min-width: 60%;
+  max-width: 800px;
+  margin: 2% auto;
+  padding: 1px;
+  background-color: transparent;
+  font-family: var(--font);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+#activity_table{
+  border: 1px solid var(--color-borde);
+}
+
+
+.foto-container {
+    display: flex; 
+    gap: 10px; 
+    flex-wrap: nowrap; 
+    justify-content: flex-start; 
+    align-items: center;
+    overflow-x: auto; 
+}
+
+
+.added_activity {
+    margin-top: 10px; 
+    text-align: center; 
+    color: #2b9437;
+    font-weight: bold;
+    font-family: var(--font);
+    margin-bottom: -10px;
+}
+
+

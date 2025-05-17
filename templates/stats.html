@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Tarea 1</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stats_style.css') }}">
+    </head>
+    <body>
+        <h1 id="stats_title">Estadísticas de Actividades</h1>
+        <div class="stats-container">
+            <div class="graficos">
+                <h2>Cantidad de Actividades por Día</h2>
+                <img src="{{ url_for('static', filename='img/grafico_lineas_2.png') }}" alt="Actividades por Día">
+            </div>
+            <div class="graficos">
+                <h2>Cantidad de Actividades por Tipo</h2>
+                <img src="{{ url_for('static', filename='img/grafico_torta_2.png') }}" alt="Actividades por Tipo">
+            </div>
+            <div class="graficos">
+                <h2>Cantidad de Actividades por Mes y Horario</h2>
+                <img src="{{ url_for('static', filename='img/grafico_barras_2.png') }}" alt="Actividades por Mes y Horario">
+            </div>
+        </div>
+        <button id="btnVolver" class="btnVolver" onclick="location.href='/'">Volver</button>
+        <script lang="javascript" src="{{ url_for('static', filename='js/stats.js') }}"></script>
+    </body>
+</html>

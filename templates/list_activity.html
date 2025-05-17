@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Tarea 1</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/list_activity_style.css') }}">
+    </head>
+    <body>
+        <div class="list_container">
+            <h1>Listado de Actividades</h1>
+            <table id="activity_table" >
+                <thead>
+                    <tr>
+                        <th>Inicio</th>
+                        <th>Término</th>
+                        <th>Comuna</th>
+                        <th>Sector</th>
+                        <th>Tema</th>
+                        <th>Nombre Organizador</th>
+                        <th>Total Fotos</th>
+                    </tr>
+                </thead>
+                <tbody id="activity_list">
+                    {% for activity in activities %}
+                    <tr class="activity-row" data-activity='{{ activity|tojson|safe }}'>
+                        <td>{{ activity.dia_hora_inicio }}</td>
+                        <td>{{ activity.dia_hora_termino }}</td>
+                        <td>{{ activity.comuna }}</td>
+                        <td>{{ activity.sector }}</td>
+                        <td>{{ activity.temas }}</td>
+                        <td>{{ activity.nombre }}</td>
+                        <td>
+                            {% if activity.foto %}
+                            <div class="foto-container">
+                                {% for ruta in activity.foto %}
+                                    <img src="{{ url_for('static', filename='uploads/' + ruta) }}" alt="Foto de actividad" class="activity_image" width="100">
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                                Sin foto
+                            {% endif %}
+                        </td>                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="{{ url_for('list_activity', page=page-1) }}">Anterior</a>
+                {% endif %}
+                <span>Página {{ page }} de {{ total_pages }}</span>
+                {% if page < total_pages %}
+                    <a href="{{ url_for('list_activity', page=page+1) }}">Siguiente</a>
+                {% endif %}
+            </div>
+        </div>
+        <div id="detalle_container" class="detalle_container" style="display: none;">
+            <h2 style="font-size: 2rem;">Detalle de la Actividad</h2>
+            <div id="detalle_info" style="display: flex; gap: 20px; justify-content: space-between;">
+                <div id="detalle_donde" style="flex: 1;"></div>
+                <div id="detalle_quien" style="flex: 1;"></div>
+                <div id="detalle_cuando" style="flex: 1;"></div>
+            </div>
+            <div id="detalle_imagenes" style="display: flex; gap: 10px; justify-content: center;"></div>
+            <div class="detalle_botones">
+                <button onclick="cerrarDetalle()">Volver al listado</button>
+                <button onclick="window.location.href='/'">Volver a la portada</button>
+            </div>
+        </div>
+        <div id="imagen_ampliada" class="imagen_ampliada" style="display: none;">
+            <img id="imagen_grande"  alt="Imagen Ampliada" style="width: 800px; height: 600px;">
+            <button id="close_img_btn" onclick="cerrarImagen()">Cerrar</button>
+        </div>
+        <script lang="javascript" src="{{ url_for('static', filename='js/list_activity.js') }}"></script>
+    </body>
+</html>

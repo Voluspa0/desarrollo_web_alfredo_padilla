@@ -22,15 +22,37 @@ h1 {
 
 .stats-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
+    gap: 45px;
     margin: 20px auto;
-    padding: 20px;
+    padding: 20px 0;
+    width: 95%;
+    max-width: 1600px;
 }
 
 .graficos {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 20px 10px 10px 10px;
+    width: 430px;
+    min-width: 300px;
+    margin: 0;
     text-align: center;
-    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.highcharts-figure {
+    margin: 0;
+}
+
+.highcharts-description {
+    color: #333;
+    font-size: 0.95rem;
+    margin-top: 10px;
 }
 
 .graficos h2 {
@@ -40,12 +62,6 @@ h1 {
     font-family: var(--font);
 }
 
-.graficos img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 #btnVolver {
     padding: 10px 20px;

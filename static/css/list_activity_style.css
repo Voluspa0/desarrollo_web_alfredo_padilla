@@ -50,11 +50,10 @@ tr:hover {
 
 .detalle_container {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: auto;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -63,13 +62,12 @@ tr:hover {
     display: none;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     text-align: center;
     box-sizing: border-box;
-    overflow: hidden;
-    max-width: 60%;
-    max-height: 90%;
+    overflow-y: auto;
+    max-width: 90%;
+    max-height: 95vh;
 }
 
 .detalle_container h2 {
@@ -156,4 +154,51 @@ tr:hover {
 
 .pagination span {
     margin: 0 10px;
+}
+
+#comentarios_section {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.comentarios_lista {
+    list-style-type: decimal;
+    padding-left: 20px;
+    width: 100%;
+    font-family: var(--font);
+    color: #333;
+}
+
+.comentarios_lista li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    word-wrap: break-word;  
+    white-space: normal;    
+    max-width: 100%;         
+    line-height: 1.4;         
+}
+
+
+button {
+    text-align: center;
+    padding: 10px 20px;
+    border: 2px solid var(--color-borde);
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 12px;
+    color: rgb(0, 0, 0);
+    
+}
+
+.comentarios_box {
+    border: 2px solid #b3b3b3;
+    border-radius: 10px;
+    background: #fafbfc;
+    padding: 30px 30px 20px 30px;
+    margin: 0 auto 30px auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    max-width: 700px;
 }

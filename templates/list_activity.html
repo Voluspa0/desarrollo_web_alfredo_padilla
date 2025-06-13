@@ -55,6 +55,10 @@
                 {% endif %}
             </div>
         </div>
+        <div style="text-align: center;">
+            <button onclick="window.location.href='/'">Volver</button>
+        </div>
+
         <div id="detalle_container" class="detalle_container" style="display: none;">
             <h2 style="font-size: 2rem;">Detalle de la Actividad</h2>
             <div id="detalle_info" style="display: flex; gap: 20px; justify-content: space-between;">
@@ -67,11 +71,35 @@
                 <button onclick="cerrarDetalle()">Volver al listado</button>
                 <button onclick="window.location.href='/'">Volver a la portada</button>
             </div>
+            <div id="comentarios_section">
+                <h3>Comentarios</h3>
+                <ol id="lista_comentarios" class="comentarios_lista"></ol>
+                <br>
+                <div class="comentarios_box">
+                    <h3>Agrega tu Comentario</h3>
+                    <form id="comentario_form" action="{{url_for('add_comentario')}}" method="post" enctype="multipart/form-data" onsubmit="return validarComentario();">
+                        <input type="hidden" id="actividad_id" name="actividad_id" value="">
+                        <label for="nombre">Nombre:</label><br>
+                        <input type="text" id="nombre" name="nombre" required minlength="3" maxlength="80"><br><br>
+                        
+                        <label for="texto">Comentario:</label><br>
+                        <textarea id="texto" name="texto" rows="4" cols="50" required minlength="5"></textarea><br><br>
+                        <div style="text-align: center;">
+                            <button type="submit" id="agregar_comentario_btn">Agregar Comentario</button>
+                            <p id="comentario_error" style="color: red;"></p>
+                        </div>
+                    </form>
+                </div>
+                <div style="text-align: center;">
+                    <br>
+                    <button onclick="cerrarDetalle()">Volver al listado</button>
+                </div>
+            </div>
         </div>
         <div id="imagen_ampliada" class="imagen_ampliada" style="display: none;">
-            <img id="imagen_grande"  alt="Imagen Ampliada" style="width: 800px; height: 600px;">
+            <img id="imagen_grande" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2P4DwQACfsD/Z8fLAAAAAAASUVORK5CYII=" alt="Imagen Ampliada" style="width: 800px; height: 600px;">
             <button id="close_img_btn" onclick="cerrarImagen()">Cerrar</button>
         </div>
-        <script lang="javascript" src="{{ url_for('static', filename='js/list_activity.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/list_activity.js') }}"></script>
     </body>
 </html>

@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, jsonify, session
+from flask_cors import cross_origin
 from utils.validations import validar_activity
 from database import db
 from werkzeug.utils import secure_filename
@@ -64,7 +65,14 @@ def list_activity():
         contactar_por = db.get_contactar_por_by_actividad_id(actividad.id)
         contactar_por_str = ", ".join([f"{contacto.nombre}: {contacto.identificador}" for contacto in contactar_por])
         fotos = db.get_fotos_by_actividad_id(actividad.id)
+        comentarios = db.get_comentarios(actividad.id)
+        comentarios = [{"id": c.id,     
+                        "nombre": c.nombre,
+                        "texto": c.texto,
+                        "fecha": c.fecha.strftime("%Y-%m-%d %H:%M") if c.fecha else ""
+                       } for c in comentarios]
         activities.append({
+            "id": actividad.id,
             "dia_hora_inicio": actividad.dia_hora_inicio,
             "dia_hora_termino": actividad.dia_hora_termino,
             "comuna": comuna.nombre,
@@ -76,7 +84,8 @@ def list_activity():
             "celular": actividad.celular,
             "descripcion": actividad.descripcion,
             "region": region.nombre,
-            "contactar_por": contactar_por_str          
+            "contactar_por": contactar_por_str,
+            "comentarios": comentarios      
         })
 
     return render_template(
@@ -180,6 +189,56 @@ def post_activity():
 
     else:
         return render_template("add_activity.html", errors=errors)
+
+@app.route("/get-stats-data", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_stats_data():
+    stats = db.get_charts_stats()
+    return jsonify(stats)
+
+
+@app.route("/get-comentarios", methods=["GET"])
+def get_comentarios():
+    actividad_id = request.args.get("actividad_id")
+    if not actividad_id:
+        return jsonify({"status": "error", "message": "Falta el parámetro actividad_id"}), 400
+    comentarios = db.get_comentarios(actividad_id)
+    return jsonify({"status": "ok", "data": comentarios})
+
+
+@app.route("/add-comentario", methods=["POST"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def add_comentario():
+    data = request.form
+    actividad_id = data.get("actividad_id")
+    nombre = data.get("nombre").strip()
+    texto = data.get("texto").strip()
+
+    errores = []
+    if not actividad_id:
+        errores.append("Falta el parámetro actividad_id.")
+    if not nombre or len(nombre) < 3 or len(nombre) > 50:
+        errores.append("El nombre debe tener entre 3 y 50 caracteres.")
+    if not texto or len(texto) < 5:
+        errores.append("El comentario debe tener al menos 5 caracteres.")
+
+    if errores:
+        return render_template("list_activitiy.html", errors=errores)
+    else:
+        db.insertar_comentario(actividad_id, nombre, texto)
+        return redirect(url_for("list_activity", message="Comentario agregado correctamente."))
+
+@app.route("/comentarios/<int:actividad_id>", methods=["GET"])
+def obtener_comentarios(actividad_id):
+    comentarios = db.get_comentarios(actividad_id)
+    return jsonify([
+        {"fecha": c.fecha.strftime("%d/%m/%Y %H:%M"),
+         "nombre": c.nombre,
+         "texto": c.texto}
+        for c in comentarios
+    ])
+
+
 
 
 if __name__ == "__main__":

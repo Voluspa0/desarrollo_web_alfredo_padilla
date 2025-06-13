@@ -10,19 +10,34 @@
         <h1 id="stats_title">Estadísticas de Actividades</h1>
         <div class="stats-container">
             <div class="graficos">
-                <h2>Cantidad de Actividades por Día</h2>
-                <img src="{{ url_for('static', filename='img/grafico_lineas_2.png') }}" alt="Actividades por Día">
+                <figure class="highcharts-figure">
+                    <div id="container1"></div>
+                    <p class="highcharts-description">
+                        Gráfico de líneas que muestra la cantidad de actividades por día.
+                    </p>
+                </figure>
             </div>
             <div class="graficos">
-                <h2>Cantidad de Actividades por Tipo</h2>
-                <img src="{{ url_for('static', filename='img/grafico_torta_2.png') }}" alt="Actividades por Tipo">
+                <figure class="highcharts-figure">
+                    <div id="container2"></div>
+                    <p class="highcharts-description">
+                        Gráfico de torta que muestra la cantidad de actividades por tipo.
+                    </p>
+                </figure>
             </div>
             <div class="graficos">
-                <h2>Cantidad de Actividades por Mes y Horario</h2>
-                <img src="{{ url_for('static', filename='img/grafico_barras_2.png') }}" alt="Actividades por Mes y Horario">
+                <figure class="highcharts-figure">
+                    <div id="container3"></div>
+                    <p class="highcharts-description">
+                        Gráfico de barras que muestra la cantidad de actividades por mes y horario.
+                    </p>
+                </figure>
             </div>
         </div>
+
         <button id="btnVolver" class="btnVolver" onclick="location.href='/'">Volver</button>
-        <script lang="javascript" src="{{ url_for('static', filename='js/stats.js') }}"></script>
+        
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="{{ url_for('static', filename='js/stats.js') }}"></script>
     </body>
 </html>

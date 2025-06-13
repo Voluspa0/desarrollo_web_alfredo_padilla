@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, BigInteger, String, ForeignKey, DateTime, Enum
+from sqlalchemy import create_engine, func, Column, Integer, BigInteger, String, ForeignKey, DateTime, Enum
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from markupsafe import escape
 
@@ -57,7 +57,7 @@ class Actividad(Base):
     fotos = relationship("Foto", back_populates="actividad", cascade="all, delete")
     contactar_por = relationship("ContactarPor", back_populates="actividad", cascade="all, delete")
     actividad_temas = relationship("ActividadTema", back_populates="actividad", cascade="all, delete")
-
+    #comentarios = relationship("Comentario", back_populates="actividad", cascade="all, delete")
 
 class Foto(Base):
     __tablename__ = 'foto'
@@ -92,7 +92,22 @@ class ActividadTema(Base):
     actividad = relationship("Actividad", back_populates="actividad_temas")
 
 
+class Comentario(Base):
+    __tablename__ = 'comentario'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(String(80), nullable=False)
+    texto = Column(String(300), nullable=False)
+    fecha = Column(DateTime, nullable=False, default=func.now())
+    actividad_id = Column(Integer, ForeignKey('actividad.id'), nullable=False)
+
 # --- Obtener información de la Base de Datos ---
+
+def get_actividad_by_id(id):
+    session = SessionLocal()
+    actividad = session.query(Actividad).filter_by(id=id).first()
+    session.close()
+    return actividad
 
 def get_last_activity():
     session = SessionLocal()
@@ -141,6 +156,76 @@ def count_activities():
     total = session.query(Actividad).count()
     session.close()
     return total
+
+def get_charts_stats():
+    session = SessionLocal()
+
+    # Data para el gráfico 1
+    activities = session.query(Actividad.dia_hora_inicio).all()
+    actividades_por_dia = {}
+    for (fecha_hora,) in activities:
+        fecha = fecha_hora.date()
+        if fecha not in actividades_por_dia:
+            actividades_por_dia[fecha] = 0
+        actividades_por_dia[fecha] += 1
+
+    data_chart1 = [
+        {"dia": fecha.strftime("%Y-%m-%d"), 
+         "cantidad": cantidad}
+        for fecha, cantidad in sorted(actividades_por_dia.items())
+    ]
+
+    # Data para el gráfico 2
+    tipos = session.query(ActividadTema.tema).all()
+    actividades_por_tipo = {}
+    for (tipo,) in tipos:
+        if tipo not in actividades_por_tipo:
+            actividades_por_tipo[tipo] = 0
+        actividades_por_tipo[tipo] += 1
+
+    data_chart2 = [
+        {"tema": tema,
+        "cantidad": cantidad} 
+        for tema, cantidad in actividades_por_tipo.items()
+    ]
+
+    # Data para el gráfico 3
+    activities = session.query(Actividad.dia_hora_inicio).all()
+    
+    mañana = [0]*12
+    mediodia = [0]*12
+    tarde = [0]*12
+
+
+    for (dt,) in activities:
+        mes = dt.month - 1
+        hora = dt.hour
+        if hora < 12:
+            mañana[mes] += 1
+        elif 12 <= hora <= 15:
+            mediodia[mes] += 1
+        else:
+            tarde[mes] += 1
+
+    data_chart3 = {
+        "mañana": mañana,
+        "mediodia": mediodia,
+        "tarde": tarde
+    }
+
+    return {
+            "actividades_por_dia": data_chart1,
+            "actividades_por_tipo": data_chart2,
+            "actividades_por_mes_horario": data_chart3
+        }
+
+
+def get_comentarios(actividad_id):
+    session = SessionLocal()
+    comentarios = session.query(Comentario).filter_by(actividad_id=actividad_id).all()
+    session.close()
+    return comentarios
+
 
 
 # --- Inserciones ---
@@ -193,4 +278,15 @@ def insertar_archivo(actividad_id, ruta_archivo, nombre_archivo):
     session.add(foto)
     session.commit()
     session.close()   
+
+def insertar_comentario(actividad_id, nombre, texto):    
+    session = SessionLocal()
+    comentario = Comentario(
+        actividad_id=actividad_id,
+        nombre=str(escape(nombre)),
+        texto=str(escape(texto))
+    )
+    session.add(comentario)
+    session.commit()
+    session.close()
 
